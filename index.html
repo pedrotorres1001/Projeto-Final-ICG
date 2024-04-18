@@ -37,13 +37,6 @@
             font-weight: 700;
         }
 
-        .fps {
-            /*background-color: red;*/
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            transition: transform 0.5s 4s;
-        }
     </style>
 </head>
 <body>
@@ -51,13 +44,9 @@
     <div id="score"></div>
 </div>
 
-<div class="fps">
-    <div id="fps"></div>
-</div>
-
 <div id="ThreeJS"></div>
 <audio src="sound/explode.mp3" preload="auto" id="explode_sound"></audio>
 
-<script src="js/index.js"></script>
+<script type="module" src="index.js"></script>
 </body>
 </html>

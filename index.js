@@ -1,3 +1,5 @@
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
 var container, scene, camera, renderer, controls;
 var keyboard = new THREEx.KeyboardState();
 var clock = new THREE.Clock;
@@ -50,20 +52,32 @@ function init() {
     var line2 = new THREE.Line(geometry, material);
     scene.add(line2);
 
-    var cubeGeometry = new THREE.CubeGeometry(50, 25, 60, 5, 5, 5);
-    var wireMaterial = new THREE.MeshBasicMaterial({
-        color: 0x00ff00,
+    // var cubeGeometry = new THREE.CubeGeometry(50, 25, 60, 5, 5, 5);
+    // var wireMaterial = new THREE.MeshBasicMaterial({
+    //     color: 0x00ff00,
+    // });
+
+
+    // movingCube = new THREE.Mesh(cubeGeometry, wireMaterial);
+    // movingCube.position.set(0, 25, -20);
+    // scene.add(movingCube);
+    var loader = new GLTFLoader();
+    loader.load('./js/models/Motorcycle.glb', function(gltf) {
+        movingCube = gltf.scene;
+        movingCube.position.set(0, 25, -20); // Adjust position as needed
+        movingCube.scale.set(0.1, 0.1, 0.1); // Adjust scale as needed
+        scene.add(movingCube);
     });
-
-
-    movingCube = new THREE.Mesh(cubeGeometry, wireMaterial);
-    movingCube.position.set(0, 25, -20);
-    scene.add(movingCube);
 }
 
 function animate() {
 
     requestAnimationFrame(animate);
+
+    var delta = clock.getDelta(); // Clock is already defined in your code
+
+    if (mixer) mixer.update(delta); // Update the animation mixer if it's defined
+
     update();
     renderer.render(scene, camera);
 
@@ -110,7 +124,6 @@ function update() {
         delta = camera.rotation.z;
         camera.rotation.z -= delta / 10;
     }
-
 
     var originPoint = movingCube.position.clone();
 
