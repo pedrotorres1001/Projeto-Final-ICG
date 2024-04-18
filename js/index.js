@@ -95,10 +95,14 @@ function update() {
         }
     }
     if (keyboard.pressed("up") || keyboard.pressed("W")) {
-        movingCube.position.z -= moveDistance;
+        if (movingCube.position.z > -400) {
+            movingCube.position.z -= moveDistance
+        }
     }
     if (keyboard.pressed("down") || keyboard.pressed("S")) {
-        movingCube.position.z += moveDistance;
+        if (movingCube.position.z < 20) {
+            movingCube.position.z += moveDistance
+        }
     }
 
     if (!(keyboard.pressed("left") || keyboard.pressed("right") ||
@@ -184,7 +188,7 @@ function makeRandomCube() {
 
     box.position.x = getRandomArbitrary(-250, 250);
     box.position.y = 1 + b / 2;
-    box.position.z = getRandomArbitrary(-800, -1200);
+    box.position.z = getRandomArbitrary(-1200, -1400);
     cubes.push(box);
     box.name = "box_" + id;
     id++;
