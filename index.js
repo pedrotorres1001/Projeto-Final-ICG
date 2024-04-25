@@ -1,4 +1,4 @@
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 var container, scene, camera, renderer, controls;
 var keyboard = new THREEx.KeyboardState();
@@ -61,7 +61,7 @@ function init() {
     // movingCube = new THREE.Mesh(cubeGeometry, wireMaterial);
     // movingCube.position.set(0, 25, -20);
     // scene.add(movingCube);
-    var loader = new GLTFLoader();
+    const loader = new GLTFLoader();
     loader.load('./js/models/Motorcycle.glb', function(gltf) {
         movingCube = gltf.scene;
         movingCube.position.set(0, 25, -20); // Adjust position as needed
@@ -184,24 +184,28 @@ function getRandomInt(min, max) {
 }
 
 
+var difficulty = 1; // Global difficulty factor
+
 function makeRandomCube() {
-    var a = 1 * 50,
-        b = getRandomInt(1, 3) * 50,
-        c = 1 * 50;
+    // Adjust cube size based on difficulty
+    var a = (1 * 50) / difficulty,
+        b = (getRandomInt(1, 3) * 50) / difficulty,
+        c = (1 * 50) / difficulty;
+
     var geometry = new THREE.CubeGeometry(a, b, c);
     var material = new THREE.MeshBasicMaterial({
         color: Math.random() * 0xffffff,
         size: 3
     });
 
-
     var object = new THREE.Mesh(geometry, material);
     var box = new THREE.BoxHelper(object);
     box.material.color.setHex(0xff0000);
 
-    box.position.x = getRandomArbitrary(-250, 250);
+    // Adjust position more randomly as difficulty increases
+    box.position.x = getRandomArbitrary(-250 * difficulty, 250 * difficulty);
     box.position.y = 1 + b / 2;
-    box.position.z = getRandomArbitrary(-1200, -1400);
+    box.position.z = getRandomArbitrary(-1200 * difficulty, -1400 * difficulty);
     cubes.push(box);
     box.name = "box_" + id;
     id++;
@@ -209,3 +213,11 @@ function makeRandomCube() {
 
     scene.add(box);
 }
+
+// Example function to increase difficulty over time
+function increaseDifficulty() {
+    difficulty += 0.1; // Increase difficulty factor slightly
+}
+
+// Call this function periodically, e.g., every minute or after certain events
+setInterval(increaseDifficulty, 60000); // Increase difficulty every 60 seconds
