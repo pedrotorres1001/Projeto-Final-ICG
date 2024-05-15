@@ -35,13 +35,13 @@ export const useControls = (vehicleApi, chassisApi) => {
     }
     
     if (controls.a) {
-      vehicleApi.setSteeringValue(0.1, 2);
-      vehicleApi.setSteeringValue(0.1, 3);
+      vehicleApi.setSteeringValue(0.2, 2);
+      vehicleApi.setSteeringValue(0.2, 3);
       vehicleApi.setSteeringValue(-0.05, 0);
       vehicleApi.setSteeringValue(-0.05, 1);
     } else if (controls.d) {
-      vehicleApi.setSteeringValue(-0.1, 2);
-      vehicleApi.setSteeringValue(-0.1, 3);
+      vehicleApi.setSteeringValue(-0.2, 2);
+      vehicleApi.setSteeringValue(-0.2, 3);
       vehicleApi.setSteeringValue(0.05, 0);
       vehicleApi.setSteeringValue(0.05, 1);
     } else {
