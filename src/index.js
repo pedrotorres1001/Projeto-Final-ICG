@@ -20,6 +20,7 @@ createRoot(document.getElementById("root")).render(
       <p>press k to swap camera</p>
       <p>press r to reset</p>
       <p>press arrows for flips</p>
+      <p>press space for hand brake</p>
     </div>
   </>
 );

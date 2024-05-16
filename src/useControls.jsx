@@ -4,21 +4,25 @@ export const useControls = (vehicleApi, chassisApi) => {
   let [controls, setControls] = useState({ });
 
   useEffect(() => {
-    const keyDownPressHandler = (e) => {
-      setControls((controls) => ({ ...controls, [e.key.toLowerCase()]: true }));
-    }
+  const keyDownPressHandler = (e) => {
+    let key = e.key.toLowerCase();
+    if (e.key === " ") key = "space";
+    setControls((controls) => ({ ...controls, [key]: true }));
+  }
 
-    const keyUpPressHandler = (e) => {
-      setControls((controls) => ({ ...controls, [e.key.toLowerCase()]: false }));
-    }
-  
-    window.addEventListener("keydown", keyDownPressHandler);
-    window.addEventListener("keyup", keyUpPressHandler);
-    return () => {
-      window.removeEventListener("keydown", keyDownPressHandler);
-      window.removeEventListener("keyup", keyUpPressHandler);
-    }
-  }, []);
+  const keyUpPressHandler = (e) => {
+    let key = e.key.toLowerCase();
+    if (e.key === " ") key = "space";
+    setControls((controls) => ({ ...controls, [key]: false }));
+  }
+
+  window.addEventListener("keydown", keyDownPressHandler);
+  window.addEventListener("keyup", keyUpPressHandler);
+  return () => {
+    window.removeEventListener("keydown", keyDownPressHandler);
+    window.removeEventListener("keyup", keyUpPressHandler);
+  }
+}, []);
 
   useEffect(() => {
     if(!vehicleApi || !chassisApi) return;
@@ -60,6 +64,16 @@ export const useControls = (vehicleApi, chassisApi) => {
       chassisApi.velocity.set(0, 0, 0);
       chassisApi.angularVelocity.set(0, 0, 0);
       chassisApi.rotation.set(0, 0, 0);
+    }
+
+    if (controls.space) {
+      // Apply braking force to the rear wheels
+      vehicleApi.setBrake(5, 2);
+      vehicleApi.setBrake(5, 3);
+    } else {
+      // Release the brake
+      vehicleApi.setBrake(0, 2);
+      vehicleApi.setBrake(0, 3);
     }
   }, [controls, vehicleApi, chassisApi]);
 
