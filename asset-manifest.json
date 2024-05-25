@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Projeto-Final-ICG/static/css/main.a92b501c.css",
+    "main.js": "/Projeto-Final-ICG/static/js/main.0737f1a8.js",
+    "index.html": "/Projeto-Final-ICG/index.html",
+    "main.a92b501c.css.map": "/Projeto-Final-ICG/static/css/main.a92b501c.css.map",
+    "main.0737f1a8.js.map": "/Projeto-Final-ICG/static/js/main.0737f1a8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a92b501c.css",
+    "static/js/main.0737f1a8.js"
+  ]
+}
